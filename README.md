@@ -14,5 +14,5 @@ Find the source code here: [Yuzuki616/V2bX](https://github.com/Yuzuki616/V2bX)
 # 一键安装
 
 ```
-wget -N https://raw.githubusercontents.com/Yuzuki616/V2bX-script/master/install.sh && bash install.sh
+wget -N https://raw.githubusercontent.com/muzaffer72/V2bX-script/master/install.sh && bash install.sh
 ```
