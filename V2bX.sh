@@ -24,7 +24,7 @@ elif cat /proc/version | grep -Eqi "ubuntu"; then
 elif cat /proc/version | grep -Eqi "centos|red hat|redhat|rocky|alma|oracle linux"; then
     release="centos"
 else
-    echo -e "${red}未检测到系统版本，请联系脚本作者！${plain}\n" && exit 1
+    echo -e "${red}Sistem sürümü algılanmadı, lütfen komut dosyası yazarıyla iletişime geçin!${plain}\n" && exit 1
 fi
 
 # os version
@@ -51,7 +51,7 @@ fi
 
 confirm() {
     if [[ $# > 1 ]]; then
-        echo && read -rp "$1 [默认$2]: " temp
+        echo && read -rp "$1 [varsayılan$2]: " temp
         if [[ x"${temp}" == x"" ]]; then
             temp=$2
         fi
@@ -66,7 +66,7 @@ confirm() {
 }
 
 confirm_restart() {
-    confirm "是否重启V2bX" "y"
+    confirm "V2bX'in yeniden başlatılsın mı" "y"
     if [[ $? == 0 ]]; then
         restart
     else
@@ -75,12 +75,12 @@ confirm_restart() {
 }
 
 before_show_menu() {
-    echo && echo -n -e "${yellow}按回车返回主菜单: ${plain}" && read temp
+    echo && echo -n -e "${yellow}Ana menüye dönmek için entera basın: ${plain}" && read temp
     show_menu
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontents.com/Yuzuki616/V2bX-script/master/install.sh)
+    bash <(curl -Ls https://raw.githubusercontents.com/muzaffer72/V2bX-script/master/install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -96,7 +96,7 @@ update() {
     else
         version=$2
     fi
-    bash <(curl -Ls https://raw.githubusercontents.com/Yuzuki616/V2bX-script/master/install.sh) $version
+    bash <(curl -Ls https://raw.githubusercontents.com/muzaffer72/V2bX-script/master/install.sh) $version
     if [[ $? == 0 ]]; then
         echo -e "${green}更新完成，已自动重启 V2bX，请使用 V2bX log 查看运行日志${plain}"
         exit
@@ -117,7 +117,7 @@ config() {
             echo -e "V2bX状态: ${green}已运行${plain}"
             ;;
         1)
-            echo -e "检测到您未启动V2bX或V2bX自动重启失败，是否查看日志？[Y/n]" && echo
+            echo -e "V2bX'i başlatmadığınız veya V2bX'in otomatik olarak yeniden başlamadığı tespit edildi.Günlüğü kontrol etmek istiyor musunuz?[Y/n]" && echo
             read -e -rp "(默认: y):" yn
             [[ -z ${yn} ]] && yn="y"
             if [[ ${yn} == [Yy] ]]; then
@@ -249,14 +249,14 @@ install_bbr() {
 }
 
 update_shell() {
-    wget -O /usr/bin/V2bX -N --no-check-certificate https://raw.githubusercontents.com/Yuzuki616/V2bX-script/master/V2bX.sh
+    wget -O /usr/bin/V2bX -N --no-check-certificate https://raw.githubusercontents.com/muzaffer72/V2bX-script/master/V2bX.sh
     if [[ $? != 0 ]]; then
         echo ""
-        echo -e "${red}下载脚本失败，请检查本机能否连接 Github${plain}"
+        echo -e "${red}Komut dosyası indirilemedi, lütfen makinenin bağlanıp bağlanamadığını kontrol edin Github${plain}"
         before_show_menu
     else
         chmod +x /usr/bin/V2bX
-        echo -e "${green}升级脚本成功，请重新运行脚本${plain}" && exit 0
+        echo -e "${green}Yükseltme komut dosyası başarılı oldu, lütfen komut dosyasını tekrar çalıştırın${plain}" && exit 0
     fi
 }
 
@@ -286,7 +286,7 @@ check_uninstall() {
     check_status
     if [[ $? != 2 ]]; then
         echo ""
-        echo -e "${red}V2bX已安装，请不要重复安装${plain}"
+        echo -e "${red}V2bX kuruldu, lütfen kurulumu tekrarlamayın${plain}"
         if [[ $# == 0 ]]; then
             before_show_menu
         fi
@@ -300,7 +300,7 @@ check_install() {
     check_status
     if [[ $? == 2 ]]; then
         echo ""
-        echo -e "${red}请先安装V2bX${plain}"
+        echo -e "${red}Lütfen önce V2bX'i yükleyin${plain}"
         if [[ $# == 0 ]]; then
             before_show_menu
         fi
@@ -314,29 +314,29 @@ show_status() {
     check_status
     case $? in
         0)
-            echo -e "V2bX状态: ${green}已运行${plain}"
+            echo -e "V2bX durumu: ${green}Çalışıyor{plain}"
             show_enable_status
             ;;
         1)
-            echo -e "V2bX状态: ${yellow}未运行${plain}"
+            echo -e "V2bX durumu: ${yellow}Çalışmıyor${plain}"
             show_enable_status
             ;;
         2)
-            echo -e "V2bX状态: ${red}未安装${plain}"
+            echo -e "V2bX durumu: ${red}Yüklü değil${plain}"
     esac
 }
 
 show_enable_status() {
     check_enabled
     if [[ $? == 0 ]]; then
-        echo -e "是否开机自启: ${green}是${plain}"
+        echo -e "Otomatik olarak başlatılıp başlatılmayacağı: ${green}Evet${plain}"
     else
-        echo -e "是否开机自启: ${red}否${plain}"
+        echo -e "Önyüklemeden sonra otomatik olarak başlatılıp başlatılmayacağı: ${red}hayır ${plain}"
     fi
 }
 
 show_V2bX_version() {
-    echo -n "V2bX 版本："
+    echo -n "V2bX sürümü:"
     /usr/local/V2bX/V2bX -version
     echo ""
     if [[ $# == 0 ]]; then
@@ -345,22 +345,22 @@ show_V2bX_version() {
 }
 
 generate_config_file() {
-    echo -e "${yellow}V2bX 配置文件生成向导${plain}"
-    echo -e "${red}请阅读以下注意事项：${plain}"
-    echo -e "${red}1. 目前该功能正处测试阶段${plain}"
-    echo -e "${red}2. 生成的配置文件会保存到 /etc/V2bX/config.yml${plain}"
-    echo -e "${red}3. 原来的配置文件会保存到 /etc/V2bX/config.yml.bak${plain}"
-    echo -e "${red}4. 目前不支持TLS${plain}"
-    read -rp "是否继续生成配置文件？(y/n)" generate_config_file_continue
+    echo -e "${yellow}V2bX Yapılandırma Dosyası Oluşturma Sihirbazı${plain}"
+    echo -e "${red}Lütfen aşağıdaki notları okuyun：${plain}"
+    echo -e "${red}1. Bu özellik şu anda beta aşamasındadır${plain}"
+    echo -e "${red}2. Oluşturulan yapılandırma dosyası buraya kaydedilecek /etc/V2bX/config.yml${plain}"
+    echo -e "${red}3. Orijinal yapılandırma dosyası buraya kaydedilecek /etc/V2bX/config.yml.bak${plain}"
+    echo -e "${red}4. TLS şu anda desteklenmiyor${plain}"
+    read -rp "Yapılandırma dosyaları oluşturmaya devam etmek istiyor musunuz?(y/n)" generate_config_file_continue
     if [[ $generate_config_file_continue =~ "y"|"Y" ]]; then
-        read -rp "请输入机场网址：" ApiHost
-        read -rp "请输入面板对接API Key：" ApiKey
-        read -rp "请输入节点Node ID:" NodeID
-        echo -e "${yellow}请选择节点传输协议，如未列出则不支持：${plain}"
+        read -rp "V2board Sunucu adresi：" ApiHost
+        read -rp "API Key：" ApiKey
+        read -rp "Node ID:" NodeID
+        echo -e "${yellow}Lütfen bir düğüm taşıma protokolü seçin, listelenmemişse desteklenmiyor：${plain}"
         echo -e "${green}1. Shadowsocks ${plain}"
         echo -e "${green}2. V2ray ${plain}"
         echo -e "${green}3. Trojan ${plain}"
-        read -rp "请输入机场传输协议 [1-4，默认1]：" NodeType
+        read -rp "Lütfen havaalanı transfer protokolünü [1-4, varsayılan 1] girin:" NodeType
         case "$NodeType" in
             1 ) NodeType="Shadowsocks" ;;
             2 ) NodeType="V2ray" ;;
