@@ -422,11 +422,11 @@ Nodes:
           ALICLOUD_ACCESS_KEY: aaa
           ALICLOUD_SECRET_KEY: bbb
 EOF
-        echo -e "${green}V2bX 配置文件生成完成，正在重新启动 V2bX 服务${plain}"
+        echo -e "${green}V2bX Kurulumu tamamlandı. Seçenekleri görmek için entere basın${plain}"
         restart 0
         before_show_menu
     else
-        echo -e "${red}已取消 V2bX 配置文件生成${plain}"
+        echo -e "${red}V2bX kurulum dosyası oluşturma İptal edildi{plain}"
         before_show_menu
     fi
 }
@@ -449,49 +449,49 @@ open_ports() {
 }
 
 show_usage() {
-    echo "V2bX 管理脚本使用方法: "
+    echo "V2bX Yönetim betiği nasıl kullanılır? "
     echo "------------------------------------------"
-    echo "V2bX              - 显示管理菜单 (功能更多)"
-    echo "V2bX start        - 启动 V2bX"
-    echo "V2bX stop         - 停止 V2bX"
-    echo "V2bX restart      - 重启 V2bX"
-    echo "V2bX status       - 查看 V2bX 状态"
-    echo "V2bX enable       - 设置 V2bX 开机自启"
-    echo "V2bX disable      - 取消 V2bX 开机自启"
-    echo "V2bX log          - 查看 V2bX 日志"
-    echo "V2bX generate     - 生成 V2bX 配置文件"
-    echo "V2bX update       - 更新 V2bX"
-    echo "V2bX update x.x.x - 安装 V2bX 指定版本"
-    echo "V2bX install      - 安装 V2bX"
-    echo "V2bX uninstall    - 卸载 V2bX"
-    echo "V2bX version      - 查看 V2bX 版本"
+    echo "V2bX              - Yönetici menüsünü göster (daha fazla özellik)"
+    echo "V2bX start        - V2bX'i başlatın"
+    echo "V2bX stop         - V2bX'i durdurun"
+    echo "V2bX restart      - V2bX'i yeniden başlatın"
+    echo "V2bX status       - Durumu Görüntüle"
+    echo "V2bX enable       - V2bX Etkinleştir"
+    echo "V2bX disable      - V2bX Devredışı Bırak"
+    echo "V2bX log          - lOG"
+    echo "V2bX generate     - V2bX yapılandırma dosyası oluşturun"
+    echo "V2bX update       - Güncelle"
+    echo "V2bX update x.x.x - Sürüme güncelleme"
+    echo "V2bX install      - V2bX Kur"
+    echo "V2bX uninstall    - V2bX Kaldır"
+    echo "V2bX version      - Version"
     echo "------------------------------------------"
 }
 
 show_menu() {
     echo -e "
-  ${green}V2bX 后端管理脚本，${plain}${red}不适用于docker${plain}
---- https://github.com/Yuzuki616/V2bX ---
-  ${green}0.${plain} 修改配置
+  ${green}Kurulum Muzaffer Şanlı，${plain}${red}不适用于docker${plain}
+--- https://github.com/muzaffer72/V2bX ---
+  ${green}0.${plain} Yapılandırmayı değiştirin
 ————————————————
-  ${green}1.${plain} 安装 V2bX
-  ${green}2.${plain} 更新 V2bX
-  ${green}3.${plain} 卸载 V2bX
+  ${green}1.${plain} V2bX'i kurun
+  ${green}2.${plain} V2bX'i güncelleyin
+  ${green}3.${plain} V2bX'i kaldırın
 ————————————————
-  ${green}4.${plain} 启动 V2bX
-  ${green}5.${plain} 停止 V2bX
-  ${green}6.${plain} 重启 V2bX
-  ${green}7.${plain} 查看 V2bX 状态
-  ${green}8.${plain} 查看 V2bX 日志
+  ${green}4.${plain} V2bX'i başlatın
+  ${green}5.${plain} V2bX'i durdurun
+  ${green}6.${plain} V2bX'i yeniden başlatın
+  ${green}7.${plain} V2bX durumunu görüntüleyin
+  ${green}8.${plain} V2bX günlüğünü kontrol edin
 ————————————————
-  ${green}9.${plain} 设置 V2bX 开机自启
- ${green}10.${plain} 取消 V2bX 开机自启
+  ${green}9.${plain} V2bX'i otomatik olarak başlayacak şekilde ayarlayın
+ ${green}10.${plain} 2bX otomatik başlatmayı iptal edin
 ————————————————
- ${green}11.${plain} 一键安装 bbr (最新内核)
- ${green}12.${plain} 查看 V2bX 版本 
- ${green}13.${plain} 升级 V2bX 维护脚本
- ${green}14.${plain} 生成 V2bX 配置文件
- ${green}15.${plain} 放行 VPS 的所有网络端口
+ ${green}11.${plain} 一bbr'nin (en son çekirdek) tek tıkla kurulumu
+ ${green}12.${plain} V2bX sürümünü görüntüleyin
+ ${green}13.${plain} V2bX bakım betiğini yükseltin
+ ${green}14.${plain} V2bX yapılandırma dosyası oluşturun
+ ${green}15.${plain} VPS'nin tüm ağ bağlantı noktalarına izin verin
  "
  #后续更新可加入上方字符串中
     show_status
