@@ -17,7 +17,7 @@ Nodes:
     ApiConfig:
       ApiHost: "https://onvao.net"
       ApiKey: "543467719746690936250" 
-      NodeID: 2
+      NodeID: 3
       NodeType: Shadowsocks # Node type: V2ray, Shadowsocks, Trojan
       Timeout: 30 # Timeout for the api request
       EnableVless: false # Enable Vless for V2ray Type
